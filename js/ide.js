@@ -1,6 +1,6 @@
 import { usePuter } from "./puter.js";
 
-const API_KEY = ""; // Get yours at https://platform.sulu.sh/apis/judge0
+const API_KEY = window.GEMINI_API_KEY || "";
 
 const AUTH_HEADERS = API_KEY ? {
     "Authorization": `Bearer ${API_KEY}`
@@ -75,7 +75,17 @@ var layoutConfig = {
                 componentState: {
                     readOnly: false
                 }
-            }, {
+            }, /* {
+                type: "component",
+                height: 66,
+                componentName: "assistant",
+                id: "assistant",
+                title: "Assistant",
+                isClosable: false,
+                componentState: {
+                    readOnly: false
+                }
+            },*/ {
                 type: "stack",
                 content: [
                     {
@@ -604,6 +614,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         layout.registerComponent("ai", function (container, state) {
             container.getElement()[0].appendChild(document.getElementById("judge0-chat-container"));
         });
+/*
+        layout.registerComponent("assistant", function (container, state) {
+            let assistantDiv = document.createElement("div");
+            assistantDiv.innerHTML = "<p>Assistant is ready to help!</p>";
+            assistantDiv.style.padding = "10px";
+            container.getElement()[0].appendChild(assistantDiv);
+        }); */
 
         layout.on("initialised", function () {
             setDefaults();
